@@ -88,6 +88,11 @@ subsetGroup <- group_by(subsetMeanStd,subject,activityname)
 #take the average of each variable for each activity and each subject
 tidyData <- summarise_each(subsetGroup,funs(mean))
 
+#rename variables for tidy data
+tidyVarNames <- names(tidyData)
+tidyVarNames[3:88] <- paste0("avg",tidyVarNames[3:88],sep="")
+names(tidyData) <- tidyVarNames
+
 write.table(tidyData, file="tidyData.txt")
 
 
