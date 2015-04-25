@@ -1,5 +1,4 @@
 library(LaF)
-library(data.table)
 library(dplyr)
 
 #load column labels
@@ -73,10 +72,23 @@ for( i in c("subject","group")) {
 #extract only mean & std measurments
 subsetMeanStd <- select(
     fullData,
-    group,
-    subject:activityName,
+    subject,
+    activityName,
     contains("mean"),
     contains("std"))
+
+#clean variable names to fit tidy data standards
+colNames <- names(subsetMeanStd)
+cleanColNames <- tolower(gsub("\\.","",colNames))
+names(subsetMeanStd) <- cleanColNames
+
+#group data by subject & activity
+subsetGroup <- group_by(subsetMeanStd,subject,activityname)
+
+#take the average of each variable for each activity and each subject
+tidyData <- summarise_each(subsetGroup,funs(mean))
+
+write.table(tidyData, file="tidyData.txt")
 
 
 
