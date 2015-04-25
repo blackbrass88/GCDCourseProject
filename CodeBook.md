@@ -52,7 +52,7 @@ source('run_anaysis.R')
 ###Cleaning of the data
 The run_analysis.R script loads and merges the test and train data sets, along with their header, subject, & activity information.  It merges the two data sets and then pulls out a subset of variables that measured mean and standard deviation.  Finally it takes the average of each subset variable for each subject and activity and writes the results to <code>tidyData.txt</code>.
 
-See the README.md found with the run_analysis.R script for more details on how the script works.
+See the [README.md](README.md) found with the run_analysis.R script for more details on how the script works.
  
 ##Description of the variables in the tinyData.txt file
 *Dimensions:* 180 observations of 88 variables
