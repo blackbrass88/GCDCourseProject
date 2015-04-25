@@ -93,7 +93,7 @@ tidyVarNames <- names(tidyData)
 tidyVarNames[3:88] <- paste0("avg",tidyVarNames[3:88],sep="")
 names(tidyData) <- tidyVarNames
 
-write.table(tidyData, file="tidyData.txt")
+write.table(tidyData, file="tidyData.txt", row.name=FALSE)
 
 
 
