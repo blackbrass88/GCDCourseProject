@@ -1,21 +1,7 @@
 library(LaF)
 library(dplyr)
 
-#load column labels
-colLabels <- read.table(
-    "UCI HAR Dataset/features.txt",
-    sep=" ",
-    header=FALSE,
-    col.names=c("id","label"),
-    colClasses=c("integer","character"))
-
-#load activity labels
-activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt",
-                             sep=" ",
-                             header=FALSE,
-                             col.names=c("id","label"))
-
-#merge subject, y, & X data tables
+#function to merge subject, y, & X data tables
 cleanSet <- function(subset, ...) {
     workingDir <- paste("UCI HAR Dataset",subset,sep="/")
     XFile <- paste(workingDir,paste("X_",subset,".txt",sep=""),sep="/")
@@ -56,6 +42,20 @@ cleanSet <- function(subset, ...) {
     
     return(finalData)
 }
+
+#load column labels
+colLabels <- read.table(
+    "UCI HAR Dataset/features.txt",
+    sep=" ",
+    header=FALSE,
+    col.names=c("id","label"),
+    colClasses=c("integer","character"))
+
+#load activity labels
+activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt",
+                             sep=" ",
+                             header=FALSE,
+                             col.names=c("id","label"))
 
 #load each data set and 
 testData <- cleanSet("test")
