@@ -70,6 +70,15 @@ for( i in c("subject","group")) {
     fullData[[i]] = as.factor(fullData[[i]])
 }
 
+#extract only mean & std measurments
+subsetMeanStd <- select(
+    fullData,
+    group,
+    subject:activityName,
+    contains("mean"),
+    contains("std"))
+
+
 
 
 
