@@ -48,17 +48,27 @@ cleanSet <- function(subset, ...) {
     subjectData <- read.table(
         subjectFile,
         header=FALSE,
-        col.names="subject",
-        colClasses = "factor")
+        col.names="subject")
     
     #merge test data
     finalData <- bind_cols(subjectData,yData,XData) 
+    finalData <- mutate(finalData, group = subset)
+    
     
     return(finalData)
 }
 
+#load each data set and 
+testData <- cleanSet("test")
+trainData <- cleanSet("train")
 
+#combine the test & train data sets
+fullData <- bind_rows(testData,trainData)
 
+#convert subject & group to factors
+for( i in c("subject","group")) {
+    fullData[[i]] = as.factor(fullData[[i]])
+}
 
 
 
