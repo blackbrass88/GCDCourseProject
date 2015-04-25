@@ -44,9 +44,13 @@ This file, containing information about the other files contained in this reposi
 
 ### Relavent Links & Sources
 [Course Project Description](http://class.coursera.org/getdata-013/human_grading/view/courses/973500/assessments/3)
+
 [Getting and Cleaning Data Course](http://class.coursera.org/getdata-013)
+
 [Human Activity Recognition Using Smartphones Data Set](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
+
 [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/index.html)
+
 [Raw Data ZIP file](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 
 
