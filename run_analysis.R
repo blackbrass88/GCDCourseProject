@@ -10,38 +10,59 @@ colLabels <- read.table(
     col.names=c("id","label"),
     colClasses=c("integer","character"))
 
+#load activity labels
 activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt",
                              sep=" ",
                              header=FALSE,
                              col.names=c("id","label"))
 
-#load X_test data
-X_test <- laf_open_fwf(
-    "UCI HAR Dataset/test/X_test.txt",
-    column_widths=rep(16,561),
-    column_types=rep("double",561),
-    column_names=colLabels$label)
+#merge subject, y, & X data tables
+cleanSet <- function(subset, ...) {
+    workingDir <- paste("UCI HAR Dataset",subset,sep="/")
+    XFile <- paste(workingDir,paste("X_",subset,".txt",sep=""),sep="/")
+    yFile <- paste(workingDir,paste("y_",subset,".txt",sep=""),sep="/")
+    subjectFile <- paste(workingDir,paste("subject_",subset,".txt",sep=""),
+                         sep="/")
+    
+    #load X data
+    XData <- laf_open_fwf(
+        XFile,
+        column_widths=rep(16,561),
+        column_types=rep("double",561),
+        column_names=colLabels$label)
+    
+    XData <- tbl_df(XData[,])
+    
+    #load y data
+    yData <- read.table(
+        yFile,
+        header=FALSE,
+        col.names="activity",
+        colClasses = "factor")
+    yData <- tbl_df(yData)
+    
+    #match activity name
+    yData <- mutate(yData, activityName = activityLabels$label[activity])
+    
+    #load subject data
+    subjectData <- read.table(
+        subjectFile,
+        header=FALSE,
+        col.names="subject",
+        colClasses = "factor")
+    
+    #merge test data
+    finalData <- bind_cols(subjectData,yData,XData) 
+    
+    return(finalData)
+}
 
-testTable <- tbl_df(X_test[,])
 
-#load y_test data
-y_test <- read.table(
-    "UCI HAR Dataset/test/y_test.txt",
-    header=FALSE,
-    col.names="activity",
-    colClasses = "factor")
-y_test <- tbl_df(y_test)
 
-#match activity name
-y_test <- mutate(y_test, activityName = activityLabels$label[activity])
 
-#load subject_test
-subject_test <- read.table(
-    "UCI HAR Dataset/test/subject_test.txt",
-    header=FALSE,
-    col.names="subject",
-    colClasses = "factor")
 
-#merge test data
-testData <- bind_cols(subject_test,y_test,testTable)
+
+
+
+
 
